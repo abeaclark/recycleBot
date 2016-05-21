@@ -15,14 +15,13 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
 
-  console.log(req.body.MediaUrl);
-  console.log(req.body.MediaUrl[0]);
+  console.log(req);
   // data = parseIncomingMessage(req)
   // response =
 
 
   // sendMessage(data.content, response)
-  // res.send('ok');
+  res.send('ok');
 });
 
 module.exports = router;
