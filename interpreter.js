@@ -41,18 +41,18 @@ module.exports = interpreter
 
 function locationToResponse(location, item){
     response = location.Name
-    response += 'is the closest place to get rid of your '
+    response += ' is the closest place to get rid of your '
     response += item
-    response += './n'
-    response += 'Address: ' + location.Address + ', ' + location.City + ', ' + location.Zip + ' ' + location.State + './n'
-    response += "Phone: " + location.Phone + "/n"
+    response += '.%0a'
+    response += 'Address: ' + location.Address + ', ' + location.City + ', ' + location.Zip + ' ' + location.State + '.%0a'
+    response += "Phone: " + location.Phone + "%0a"
 
     if (location.Appointment) {
-      response += '/n You\'ll need an appointment: ' + location.Appointment
+      response += '%0a You\'ll need an appointment: ' + location.Appointment
     }
 
     if (location.Hours) {
-      response += '/n Hours: ' + location.Hours
+      response += '%0a Hours: ' + location.Hours
     }
 
     return response
