@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var interpreter = require('../interpreter')
+var users = require('./database').users
 
 // instantiate twilio
 var twilio = require('twilio');
@@ -31,12 +32,13 @@ function parseIncomingMessage(req){
   textContent = req.body.Body;
   textFromNumber = req.body.From;
   photoUrl = null
+  user = findOrCreateUser(textFromNumber)
 
   if (req.body.MediaUrl0) {
     photoUrl = req.body.MediaUrl0
   }
 
-  return {content: textContent, number: textFromNumber, photoUrl: photoUrl}
+  return {content: textContent, number: textFromNumber, photoUrl: photoUrl, user: user}
 }
 
 
@@ -64,4 +66,21 @@ function determineResponse(data) {
     return interpreter(data)
   }
 
+}
+
+function findOrCreateUser(phoneNumber){
+  if(users[phoneNumber]){
+    return users[phoneNumber]
+  }else{
+    users[phoneNumber] = new User(phoneNumber)
+    return users[phoneNumber]
+  }
+}
+
+function User(phoneNumber){
+  return {
+    phoneNumber: phoneNumber,
+    zipCode: null,
+    itemsToDispose = null
+  }
 }
