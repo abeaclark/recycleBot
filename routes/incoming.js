@@ -18,7 +18,7 @@ router.post('/', function(req, res, next) {
   console.log('data recieved')
   response = interpreter(data)
   console.log('response interpreted')
-  sendMessage(data.content, response)
+  sendMessage(data.number, response)
   console.log('message sent')
   res.send('ok');
 });
