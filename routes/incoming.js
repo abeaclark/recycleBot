@@ -15,7 +15,8 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
 
-  console.log(req.MediaUrl0);
+  console.log(req.MediaUrl);
+  console.log(req.MediaUrl[0]);
   // data = parseIncomingMessage(req)
   // response =
 
