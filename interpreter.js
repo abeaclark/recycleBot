@@ -1,5 +1,5 @@
 var natural = require('natural');
-
+var db = require('./database')
 
 
 // Tag parts of speech
@@ -29,13 +29,35 @@ var interpreter = function(data) {
   // Sort out nouns of interests (things to be donated/disposed)
   var itemsToDispose = grabThings(taggedSentence)
 
-  var response = "Here is a link where you can find information about where to get rid of your " + itemsToDispose.join(',') + " : http://www.recycleworks.org/";
+  var response = locationToResponse(db[0], itemsToDispose.join(','))
+
+  // var response = "Here is a link where you can find information about where to get rid of your " + itemsToDispose.join(',') + " : http://www.recycleworks.org/";
 
   return response
 };
 
 
 module.exports = interpreter
+
+function locationToResponse(location, item){
+    response = location.Name
+    response += 'is the closest place to get rid of your '
+    response += item
+    response += './n'
+    response += 'Address: ' + location.Address + ', ' + location.City + ', ' + location.Zip + ' ' + location.State + './n'
+    response += "Phone: " + location.Phone + "/n"
+
+    if (location.Appointment) {
+      response += '/n You\'ll need an appointment: ' + location.Appointment
+    }
+
+    if (location.Hours) {
+      response += '/n Hours: ' + location.Hours
+    }
+
+    return response
+
+}
 
 
 // looks for items that the person wants to know about
@@ -55,3 +77,6 @@ function grabThings(array) {
 function isInArray(value, array) {
   return array.indexOf(value) > -1;
 }
+
+
+// console.log(locationToResponse(db[0], 'Shoe'));
