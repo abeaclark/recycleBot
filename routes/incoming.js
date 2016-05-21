@@ -16,22 +16,27 @@ router.post('/', function(req, res, next) {
 
 
   console.log(req.body.MediaUrl0);
-  // data = parseIncomingMessage(req)
-  // response =
+  data = parseIncomingMessage(req)
+  response = determineResponse(data)
 
-
-  // sendMessage(data.content, response)
+  sendMessage(data.content, response)
   res.send('ok');
 });
 
 module.exports = router;
 
 // input = incoming post request
-// output = {content: 'content text', number: '+13604540021'}
+// output = {content: 'content text', number: '+13604540021', photo: null or 'www.photo.com'}
 function parseIncomingMessage(req){
   textContent = req.body.Body;
   textFromNumber = req.body.From;
-  return {content: textContent, number: textFromNumber}
+  photoUrl = null
+
+  if (req.body.MediaUrl0) {
+    photoUrl = req.body.MediaUrl0
+  }
+
+  return {content: textContent, number: textFromNumber, photoUrl: photoUrl}
 }
 
 
@@ -45,5 +50,10 @@ function sendMessage(recipient_number, message) {
   }, function(err, message) {
       console.log(message.sid);
   });
+
+}
+
+
+function determineResponse(data) {
 
 }
