@@ -29,7 +29,7 @@ var interpreter = function(data) {
   // Sort out nouns of interests (things to be donated/disposed)
   var itemsToDispose = grabThings(taggedSentence)
 
-  var response = "Here is a link where you can find information about where to get rid of your" + itemsToDispose.join(',') + " : http://www.recycleworks.org/";
+  var response = "Here is a link where you can find information about where to get rid of your " + itemsToDispose.join(',') + " : http://www.recycleworks.org/";
 
   return response
 };
