@@ -22,10 +22,8 @@ var pronouns = ['i', 'he', 'she', 'it', 'they', 'them', 'me', 'us']
 // input: data object
 // output: response to be sent back to client
 var interpreter = function(data) {
-
-  var sentence = "Where can I donate my antifreeze"
   // split into array
-  sentence = tokenizer.tokenize(sentence)
+  sentence = tokenizer.tokenize(data.content)
   // add language tags (noun, verb, etc.)
   var taggedSentence = tagger.tag(sentence)
   // Sort out nouns of interests (things to be donated/disposed)
