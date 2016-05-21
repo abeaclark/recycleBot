@@ -1,33 +1,22 @@
-var https = require("https");
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var xhr = new XMLHttpRequest();
 
-var distance = function(location_a, location_b){
-  location_a_string = encodeURIComponent(location_a);
-  location_b_string = encodeURIComponent(location_b);
+var distance = function(location_a, location_b) {
+    var location_a_string = encodeURIComponent(location_a);
+    var location_b_string = encodeURIComponent(location_b);
 
-  console.log(location_b_string)
-  console.log(location_a_string)
+    var host = "https://maps.googleapis.com",
+        key = 'AIzaSyAZO6N4WouGfqhpQeZRtG-MsA9diL7G1AQ',
+        path = "/maps/api/distancematrix/json?units=imperial&origins=" + location_a
+                                                         + "&destinations=" + location_b
+                                                         + "&key=" + key;
 
-  base_url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial'
+    xhr.open("GET", host+path, false);
+    xhr.send();
+    //unfinished
+    //return( xhr.responseText.substring(xhr.responseText.indexOf("text")+9, xhr.responseText.indexOf("value")-25));
+    console.log( xhr.responseText );
+};
+module.exports = distance;
 
-  key='AIzaSyAZO6N4WouGfqhpQeZRtG-MsA9diL7G1AQ'
-
-  request_url = base_url + '&origins=' + location_a_string + '&destinations=' + location_b_string
-
-  https.get(request_url, (res) => {
-    // console.log('statusCode: ', res.statusCode);
-    // console.log('headers: ', res.headers);
-
-    res.on('data', (d) => {
-      process.stdout.write(d);
-      // console.log(d['rows'][0]['elements']['distance'])
-    });
-
-  }).on('error', (e) => {
-    console.error(e);
-  });
-
-}
-
-module.exports = distance
-
-distance('3605 Arbor Dr SE, Lacey WA 98503', '65 Ora Way #202, San Francisco, CA 94131')
+distance('Atlanta', 'New York');
