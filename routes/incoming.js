@@ -14,9 +14,9 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   console.log(req.body);
-  console.log(req.body.body);
+  console.log(req.body.Body);
 
-  sendMessage('+13604640368', req.body.body)
+  sendMessage('+13604640368', req.body.Body)
   res.send('ok');
 });
 
