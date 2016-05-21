@@ -13,16 +13,28 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  console.log(req.body);
-  console.log(req.body.Body);
+  console.log(req);
+  // data = parseIncomingMessage(req)
+  // response =
 
-  sendMessage('+13604640368', req.body.Body)
-  res.send('ok');
+
+  // sendMessage(data.content, response)
+  // res.send('ok');
 });
 
 module.exports = router;
 
+// input = incoming post request
+// output = {content: 'content text', number: '+13604540021'}
+function parseIncomingMessage(req){
+  textContent = req.body.Body;
+  textFromNumber = req.body.From;
+  return {content: textContent, number: textFromNumber}
+}
 
+
+// input = number, message
+// output = sends message via twilio API
 function sendMessage(recipient_number, message) {
   client.messages.create({
       body: message,
