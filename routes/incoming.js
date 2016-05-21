@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  sendMessage('+13604640368', req)
+  sendMessage('+13604640368', 'recieved')
   res.send('ok');
 });
 
