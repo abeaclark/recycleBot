@@ -43,16 +43,16 @@ function locationToResponse(location, item){
     response = location.Name
     response += ' is the closest place to get rid of your '
     response += item
-    response += '.\na'
-    response += 'Address: ' + location.Address + ', ' + location.City + ', ' + location.Zip + ' ' + location.State + '.\na'
-    response += "Phone: " + location.Phone + "\na"
+    response += '.\n'
+    response += 'Address: ' + location.Address + ', ' + location.City + ', ' + location.Zip + ' ' + location.State + '.\n'
+    response += "Phone: " + location.Phone + "\n"
 
     if (location.Appointment) {
-      response += '\na You\'ll need an appointment: ' + location.Appointment
+      response += '\n You\'ll need an appointment: ' + location.Appointment
     }
 
     if (location.Hours) {
-      response += '\na Hours: ' + location.Hours
+      response += '\n Hours: ' + location.Hours
     }
 
     return response
