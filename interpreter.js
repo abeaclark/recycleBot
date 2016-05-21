@@ -1,5 +1,6 @@
 var natural = require('natural');
-var db = require('./database')
+var locations = require('./database').locations
+var users = require('./database').users
 
 
 // Tag parts of speech
@@ -22,6 +23,11 @@ var pronouns = ['i', 'he', 'she', 'it', 'they', 'them', 'me', 'us']
 // input: data object
 // output: response to be sent back to client
 var interpreter = function(data) {
+  // if it is a zip, assign to user
+  if(parseInt(data.content)){
+    data.user.zipCode = parseInt(data.content)
+  }
+
   // split into array
   sentence = tokenizer.tokenize(data.content)
   // add language tags (noun, verb, etc.)
@@ -29,11 +35,17 @@ var interpreter = function(data) {
   // Sort out nouns of interests (things to be donated/disposed)
   var itemsToDispose = grabThings(taggedSentence)
 
-  var response = locationToResponse(db[0], itemsToDispose.join(','))
+  if (data.user.zipCode){
+    var response = locationToResponse(locations[0], itemsToDispose.join(','))
 
-  // var response = "Here is a link where you can find information about where to get rid of your " + itemsToDispose.join(',') + " : http://www.recycleworks.org/";
+    // var response = "Here is a link where you can find information about where to get rid of your " + itemsToDispose.join(',') + " : http://www.recycleworks.org/";
+    data.user.itemsToDispose = null
+    return response
+  } else {
+    return 'what is your zipcode?'
+  }
 
-  return response
+
 };
 
 
@@ -79,4 +91,4 @@ function isInArray(value, array) {
 }
 
 
-// console.log(locationToResponse(db[0], 'Shoe'));
+// console.log(locationToResponse(locations[0], 'Shoe'));
