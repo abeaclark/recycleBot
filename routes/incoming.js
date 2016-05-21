@@ -13,6 +13,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  console.log('Request: ', req);
+  console.log('Response: ', res);
+
   sendMessage('+13604640368', 'recieved')
   res.send('ok');
 });
