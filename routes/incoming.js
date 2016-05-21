@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var interpreter = require('../interpreter')
 
 // instantiate twilio
 var twilio = require('twilio');
@@ -13,9 +14,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-
-
-  console.log(req.body.MediaUrl0);
   data = parseIncomingMessage(req)
   response = determineResponse(data)
 
@@ -55,5 +53,13 @@ function sendMessage(recipient_number, message) {
 
 
 function determineResponse(data) {
+  text = data.content
+
+  // determine if picture message
+  if (data.photoUrl) {
+    // handle photo response
+  } else {
+    return interpreter(data)
+  }
 
 }
