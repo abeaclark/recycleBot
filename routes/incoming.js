@@ -15,9 +15,11 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   data = parseIncomingMessage(req)
-  response = determineResponse(data)
-
+  console.log('data recieved')
+  response = interpreter(data)
+  console.log('response interpreted')
   sendMessage(data.content, response)
+  console.log('message sent')
   res.send('ok');
 });
 
